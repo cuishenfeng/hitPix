@@ -203,7 +203,7 @@ game.prototype={
                         if (that.currentscore % that.step == 0) {
                             that.step = that.currentscore * 2;
                             that.currentscore = 0;
-                            that.speed += 2;
+                            that.speed += 5;
                         }
                         that.barrierArr[i].score = "true";
                     }
