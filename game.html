@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/game.js"></script>
+    <script src="js/imgload.js"></script>
+    <script src="js/touch.min.js"></script>
+    <script src="js/hitPix.js"></script>
+</head>
+<style>
+    html,body{
+        width:100%;height:100%;
+        margin:0;padding:0;
+        overflow: hidden;
+    }
+    canvas{
+        background: #180500 url("img/back.jpg");
+        background-repeat: repeat-x;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        var canvas=document.querySelector("canvas");
+        var cobj=canvas.getContext("2d");
+        var clientW,clientH;
+        var runimg = document.querySelectorAll(".run");
+        var jumpimg=document.querySelectorAll(".jump");
+        var barrierimg=document.querySelectorAll(".barrier");
+
+        var gameObj=new game(canvas,cobj,runimg,jumpimg,barrierimg);
+
+        window.onresize=function() {
+            clientW = document.documentElement.clientWidth;
+            clientH = document.documentElement.clientHeight;
+            canvas.width = clientW;
+            canvas.height = clientH;
+
+            if(canvas.width/1366>canvas.height/544){
+                canvas.style.backgroundSize="contain";
+            }else{
+                canvas.style.backgroundSize="cover";
+            }
+
+            gameObj.person.y=canvas.height-gameObj.person.height;
+            for(var i=0;i<gameObj.barrierArr.length;i++) {
+                gameObj.barrierArr[i].y = canvas.height - gameObj.barrierArr[i].height+10;
+            }
+        }
+        window.onresize();
+
+        var imgObj=new imageLoad(document.querySelectorAll("img"));
+        imgObj.loadAll(function(){
+            gameObj.play();
+        })
+
+    })
+</script>
+<body>
+<canvas></canvas>
+<img src="img/running/run1.png" alt="" class="run" hidden>
+<img src="img/running/run2.png" alt="" class="run" hidden>
+<img src="img/running/run3.png" alt="" class="run" hidden>
+<img src="img/running/run4.png" alt="" class="run" hidden>
+<img src="img/running/run5.png" alt="" class="run" hidden>
+<img src="img/running/run6.png" alt="" class="run" hidden>
+<img src="img/running/run7.png" alt="" class="run" hidden>
+<img src="img/running/run8.png" alt="" class="run" hidden>
+<img src="img/running/run9.png" alt="" class="run" hidden>
+<img src="img/running/run10.png" alt="" class="run" hidden>
+<img src="img/running/run11.png" alt="" class="run" hidden>
+<img src="img/running/run12.png" alt="" class="run" hidden>
+<img src="img/running/run13.PNG" alt="" class="run" hidden>
+<img src="img/running/run14.png" alt="" class="run" hidden>
+<img src="img/running/run15.png" alt="" class="run" hidden>
+
+<img src="img/running/run13.PNG" alt="" class="jump" hidden>
+
+<img src="img/hinder/boom.png" alt="" class="barrier" hidden>
+<img src="img/hinder/chick.png" alt="" class="barrier" hidden>
+<img src="img/hinder/egg.png" alt="" class="barrier" hidden>
+<img src="img/hinder/flow.png" alt="" class="barrier" hidden>
+<img src="img/hinder/grass.png" alt="" class="barrier" hidden>
+<img src="img/hinder/pail.png" alt="" class="barrier" hidden>
+<img src="img/hinder/stone.png" alt="" class="barrier" hidden>
+<img src="img/hinder/tree.png" alt="" class="barrier" hidden>
+<img src="img/hinder/ys.png" alt="" class="barrier" hidden>
+
+</body>
+</html>
