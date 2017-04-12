@@ -146,7 +146,7 @@ function game(canvas,cobj,runimg,jumpimg,barrierimg){
     //当前分数
     this.currentscore=0;
     //关卡难度
-    this.step=2;
+    this.step=5;
 }
 game.prototype={
     play:function(){
@@ -157,7 +157,7 @@ game.prototype={
         var backpos=0;
         //障碍物
         var times=0;
-        var randtime=Math.floor(4+3*Math.random())*1000;
+        var randtime=Math.floor(2+5*Math.random())*1000;
 
         that.person.jump();
         setInterval(function(){
@@ -165,6 +165,7 @@ game.prototype={
             that.cobj.clearRect(0,0,that.canvas.width,that.canvas.height);
             //判断障碍物出场时间
             if(times%randtime==0){
+                randtime=Math.floor(2+5*Math.random())*1000;
                 var barrierObj=new barrier(that.canvas,that.cobj,that.barrierimg);
                 barrierObj.state=Math.floor(Math.random()*that.barrierimg.length);
                 barrierObj.y=that.canvas.height-barrierObj.height;
@@ -189,7 +190,7 @@ game.prototype={
                         setTimeout(function(){
                             that.life--;
                             if(that.life<0){
-                                alert("Game Over!");
+                                alert("Game Over! 获得总分："+that.score);
                                 location.reload();
                             }
                         },0)
@@ -200,6 +201,10 @@ game.prototype={
                     if(!that.barrierArr[i].score) {
                         ++that.score;
                         ++that.currentscore;
+
+                        var scorebox=document.querySelector(".score");
+                        scorebox.innerHTML="当前分数:"+that.currentscore;
+
                         if (that.currentscore % that.step == 0) {
                             that.step = that.currentscore * 2;
                             that.currentscore = 0;
@@ -209,6 +214,7 @@ game.prototype={
                     }
                 }
             }
+
 
             personNum++;
             that.person.draw();
